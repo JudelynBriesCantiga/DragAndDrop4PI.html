@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drag and Drop Animals</title>
+  <link rel="stylesheet" href="DragonAndDropAPI.css">
+</head>
+<body>
+  <h1>Animal Sorting Game</h1>
+  <p>Drag the animals to their correct habitat: Land or Sea.</p>
+
+  <div id="animals">
+    <div class="draggable" draggable="true" id="elephant">🐘 Elephant</div>
+    <div class="draggable" draggable="true" id="shark">🦈 Shark</div>
+    <div class="draggable" draggable="true" id="tiger">🐅 Tiger</div>
+    <div class="draggable" draggable="true" id="whale">🐋 Whale</div>
+    <div class="draggable" draggable="true" id="dolphin">🐬 Dolphin</div>
+    <div class="draggable" draggable="true" id="lion">🦁 Lion</div>
+  </div>
+
+  <div id="dropzones">
+    <div class="dropzone" id="land">Land</div>
+    <div class="dropzone" id="sea">Sea</div>
+  </div>
+
+  <script>
+      // Define correct habitats
+      const correctHabitat = {
+        elephant: 'land',
+        tiger: 'land',
+        lion: 'land',
+        shark: 'sea',
+        whale: 'sea',
+        dolphin: 'sea',
+      };
+      
+      // Select draggable animals and drop zones
+      const draggables = document.querySelectorAll('.draggable');
+      const dropzones = document.querySelectorAll('.dropzone');
+      
+      // Add dragstart event to draggables
+      draggables.forEach(draggable => {
+        draggable.addEventListener('dragstart', (e) => {
+          e.dataTransfer.setData('text', e.target.id);
+        });
+      });
+      
+      // Add dragover and drop events to dropzones
+      dropzones.forEach(dropzone => {
+        dropzone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          dropzone.style.backgroundColor = '#d1e7ff'; // Highlight dropzone
+        });
+      
+        dropzone.addEventListener('dragleave', () => {
+          dropzone.style.backgroundColor = '#eef';
+        });
+      
+        dropzone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          const animalId = e.dataTransfer.getData('text');
+          const animal = document.getElementById(animalId);
+          const habitat = dropzone.id;
+      
+          // Check if the animal belongs in the dropzone
+          if (correctHabitat[animalId] === habitat) {
+            dropzone.appendChild(animal);
+            dropzone.classList.add('correct');
+            dropzone.classList.remove('wrong');
+          } else {
+            dropzone.classList.add('wrong');
+            dropzone.classList.remove('correct');
+            alert(`Wrong! ${animal.textContent.trim()} does not belong in the ${habitat}.`);
+          }
+      
+          dropzone.style.backgroundColor = '#eef';
+        });
+      });
+  </script>
+</body>
+</html>

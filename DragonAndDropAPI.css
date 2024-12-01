@@ -1,0 +1,56 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 20px;
+}
+
+#animals {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.draggable {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFBBFF;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  cursor: grab;
+  user-select: none;
+  font-size: 18px;
+}
+
+#dropzones {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.dropzone {
+  width: 150px;
+  height: 200px;
+  background-color: #FFD0F7;
+  border: 2px dashed #007bff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #007bff;
+}
+
+.dropzone.correct {
+  border-color: green;
+  color: green;
+}
+
+.dropzone.wrong {
+  border-color: red;
+  color: red;
+}
